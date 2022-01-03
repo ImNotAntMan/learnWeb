@@ -1,3 +1,5 @@
+
+
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
@@ -51,6 +53,7 @@
 .loginbox {
   background-color: white;
 }
+
 /* 100% Image Width on Smaller Screens */
 @media only screen and (max-width: 700px){
   .modal-content {

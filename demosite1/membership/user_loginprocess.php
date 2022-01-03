@@ -42,6 +42,7 @@ if (!empty($row['username'])) {
     $b = setcookie('passwd', $passwd, time() + 60);
   }
   $_SESSION['username']=$username;
+  $_SESSION['userid'] =  $row['userid'];
   $_SESSION['userip']=$userip;
   // 여기까지 로그인 성공시 세션관리를 위한 추가 코드
   $conn->close();

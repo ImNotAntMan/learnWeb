@@ -14,7 +14,7 @@
   session 관리 목적 추가
 -->
 <?php
-require_once './util/utility.php';
+require_once './util/sysconfig.php';
 require_once './util/loginchk.php';
 ?>
 
@@ -40,7 +40,7 @@ require_once './util/loginchk.php';
   <!-- -->
   <nav>
     <ul>
-      <li>navmenu1</li>
+      <li><a href="./board/board_list.php">게시판</a></li>
       <li>navmenu1</li>
       <li>navmenu1</li>
       <?php
