@@ -121,14 +121,6 @@ form input[type=text], form input[type=password] {
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
-
-form input[type=textarea] {
-  width: 100%;
-  height: 6.25em;
-  border: none;
-  resize: none;
-}
-
 /* The Close Button */
 .close {
   position: absolute;
@@ -151,19 +143,20 @@ form input[type=textarea] {
   background-color: white;
 }
 
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+li {
+    display: inline;
+}
 nav > ul > li {
   float : left;
+  display: inline;
   margin-left: 2em;
 }
 
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-li {
-  display: inline;
-}
 .pagination {
   display: inline-block;
 }
@@ -173,7 +166,6 @@ li {
   float: left;
   padding: 8px 16px;
   text-decoration: none;
-  border: 1px solid #ddd; /* Gray */
 }
 
 
@@ -184,19 +176,6 @@ li {
 
 .pagination a:hover:not(.active) {background-color: #ddd;}
 
-.contents {
-  display: flex;
-  flex-wrap: wrap;
-  background-color: red;
-  border: 1px solid black;
-  align-items: center;
-}
-
-.contents_deep {
-  position: absolute;
-  border: 1px solid black;
-  width: 25%;
-}
 /* 100% Width on Smaller Screens */
 @media only screen and (max-width: 700px){
   .modal-content {

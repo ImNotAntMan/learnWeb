@@ -15,13 +15,13 @@ if (!$chk_login) {  // 로그인 상태가 아니라면
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <title>메모 리스트</title>
 </head>
 <body>
 <header>
     <div class="headeritem"><a href="/index.php">logo</logo></div>
-    <div class="headeritem">megamenu1</div>
+    <div class="headeritem">megamenu1</div> 
     <div class="headeritem">megamenu2</div>
     <div class="loginlink"><?=$_SESSION['username']?><button><a href="./membership/user_logout.php">logout</a></button>
 </div>
@@ -37,7 +37,7 @@ if (!$chk_login) {  // 로그인 상태가 아니라면
   }
 
   // 2. 페이지당 보여줄 리스트 갯수값을 정한다.
-  $total_records_per_page = 9;
+  $total_records_per_page = 12;
 
   // 3. OFFSET을 계산하고 앞/뒤 페이지 등의 변수를 설정한다.
   $offset = ($page_no - 1) * $total_records_per_page;
@@ -60,15 +60,10 @@ if (!$chk_login) {  // 로그인 상태가 아니라면
   $resultset = $conn->query($sql);
 
 ?>
-    <div>
     <h1>메모 리스트</h1>
-    <table border=1>
-        <tr>
-        <th>제목</th><th>생성일<br>최종수정일</th><th>사용자이름</th><th></th><th></th>
-        </tr>
+    <div class="contents">
         <?php
            $sql = "SELECT * FROM memo where userid=".$userid." order by registdate desc limit ".$offset.", ".$total_records_per_page;
-           echo $sql;
            //$sql = "SELECT memoupdate.subject, toymemoupdate.contents, toymemoupdate.modifydate, toymemoupdate.modify, toymemo.registdate FROM toymemo INNER JOIN toymemoupdate ON toymemo.memoid = toymemoupdate.memoid WHERE toymemoupdate.memoid=".$memoid." ORDER BY modifydate DESC;" ;
            $resultset = $conn->query($sql);
 
@@ -83,18 +78,19 @@ if (!$chk_login) {  // 로그인 상태가 아니라면
                     $modifydate = "수정이력없음.";
                 }
         ?>
-             <div class="contents">
+             <div class="contents_deep">
               <label for="subject"><b>제목: <?=$row['subject']?></b></label><br>
               <label for="passwd"><b>내용: <?=$row['contents']?></b></label><br>
               <label for="registdate"><b>등록일: <?=$row['registdate']?></b></label><br>
-              <label for="modifydate"><b>수정일: <?=$modifydate?></b></label><br></label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            
-          </div>
-
-          <a href="memo_writeForm.php" color="blue">새로운 메모 작성</a>
-                <a href="/index.php">처음으로</a>
+              <label for="modifydate"><b>수정일: <?=$modifydate?></b></label><br></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <a href="memo_modify.php?memoid=<?=$row['memoid']?>">수정&nbsp;&nbsp;</a><a href="memo_modifylist.php?memoid=<?=$row['memoid']?>">수정이력</a>
             </div>
-
+            <?php } ?>
+    </div>
+        <table border=1>
+        <tr>
+        <th>제목</th><th>생성일<br>최종수정일</th><th>사용자이름</th><th></th><th></th>
+        </tr>
         <?php
                 echo "<tr>";
                 echo "<td>";
@@ -126,11 +122,11 @@ if (!$chk_login) {  // 로그인 상태가 아니라면
         ?>
     </table>
     <ul class="pagination">
-  <?php if($page_no > 1){
-  echo "<li><a href='?page_no=1'>First Page</a></li>";
-  } ?>
+    <?php if($page_no > 1){
+      echo "<li><a href='?page_no=1'>First Page</a></li>";
+    } ?>
       
-  <li <?php if($page_no <= 1){ echo "class='disabled'"; } ?>>
+    <li <?php if($page_no <= 1){ echo "class='disabled'"; } ?>>
   <a <?php if($page_no > 1){
   echo "href='?page_no=$previous_page'";
   } ?>>Previous</a>
@@ -184,4 +180,3 @@ if (!$chk_login) {  // 로그인 상태가 아니라면
 
 </body>
 </html>
-<?php } ?>
