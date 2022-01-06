@@ -21,6 +21,8 @@ $memoid = $_GET['memoid'];
     <title>메모 수정 이력</title>
 </head>
 <body>
+    <h1>메모 수정 이력 리스트입니다.</h1>
+    <h3>제목을 누르면 내용을 볼 수 있습니다.</h3>
     <table>
         <tr>
         <th>제목</th><th>생성일<br>최종수정일</th><th>변경유형</th><th></th><th></th><th></th>

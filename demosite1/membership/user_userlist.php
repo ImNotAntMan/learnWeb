@@ -29,10 +29,11 @@ if($chk_login){
 
 <body>
   <h6>로그인 성공!!</h6>
-  <h1>사용자 목록</h1>
+  <h1>회원 정보 확인</h1>
   <br><br>
   <?php
-  $sql = "SELECT * FROM users";
+  $userid = $_SESSION['userid'];
+  $sql = "SELECT * FROM users where userid=".$userid;
   $resultset = $conn->query($sql);
 
   if ($resultset->num_rows > 0) {

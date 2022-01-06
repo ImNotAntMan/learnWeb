@@ -6,8 +6,8 @@
   업데이트일자 : 2021-12-30 by 민재기
   
   기능: 
-  create_memoForm.html 메모 입력화면에서 입력된 값을 받아, validation 후
-  toymemo 테이블에 사용자 메모 데이터를 추가한다.
+  create_memoForm.php 메모 입력화면에서 입력된 값을 받아, validation 후
+  memo 테이블에 사용자 메모 데이터를 추가한다.
 -->
 
 <?php
@@ -26,11 +26,16 @@
  $subject = $_POST['subject'];
  $contents = $_POST['contents'];
  // 입력 처리를 위한 prepared sql 구성 및 bind
+ $i = 0;
+ while($i <= 44) {
 $stmt = $conn->prepare("INSERT INTO memo(userid, subject, contents) VALUES(?, ?, ?)");
 //$stmt = $conn->prepare("INSERT INTO `memo`(`userid`, `subject`, `contents`) VALUES ('?','?','?')");
 $stmt->bind_param("sss", $userid, $subject, $contents);
 $stmt->execute();
-
+$i++;
+$subject = $_POST['subject']." ".$i;
+$contents = $_POST['contents']." ".$i;
+  }
 // 데이터베이스 연결 인터페이스 리소스를 반납한다.
 $conn->close();
 

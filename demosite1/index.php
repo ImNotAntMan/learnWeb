@@ -30,7 +30,7 @@ require_once './util/loginchk.php';
 <body>
   <!-- Logo, Memga menu's, Introduction Video link, and Login Button -->
   <header>
-    <div class="headeritem">logo</div>
+    <div class="headeritem"><a href="/index.php">logo</a></div>
     <div class="headeritem">megamenu1</div>
     <div class="headeritem">megamenu2</div>
     <div class="loginlink">
@@ -60,7 +60,7 @@ require_once './util/loginchk.php';
       <?php 
       } else {
         echo $_SESSION['username']; ?>
-        <button?><a href="./membership/user_logout.php">logout</a></button>
+        <button><a href="./membership/user_logout.php">logout</a></button>
       <?php
       }// end of if(!$chk_login)
     ?>
