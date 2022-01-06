@@ -67,7 +67,7 @@ if (!$chk_login) {  // 로그인 상태가 아니라면
         <th>제목</th><th>생성일<br>최종수정일</th><th>사용자이름</th><th></th><th></th>
         </tr>
         <?php
-           $sql = "SELECT * FROM memo where userid=".$userid." order by registdate desc limit                                                                       ".$offset.", ".$total_records_per_page;
+           $sql = "SELECT * FROM memo where userid=".$userid." order by registdate desc limit ".$offset.", ".$total_records_per_page;
            echo $sql;
            //$sql = "SELECT memoupdate.subject, toymemoupdate.contents, toymemoupdate.modifydate, toymemoupdate.modify, toymemo.registdate FROM toymemo INNER JOIN toymemoupdate ON toymemo.memoid = toymemoupdate.memoid WHERE toymemoupdate.memoid=".$memoid." ORDER BY modifydate DESC;" ;
            $resultset = $conn->query($sql);
