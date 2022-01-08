@@ -132,17 +132,21 @@ if (!$chk_login) {  // 로그인 상태가 아니라면
   } ?>>Previous</a>
   </li>
 <?php
-  
-	for ($counter = 1; $counter <= $total_no_of_pages; $counter++){
-	if ($counter == $page_no) {
-	echo "<li class='active'><a>$counter</a></li>";	
-	        }else{
-        echo "<li><a href='?page_no=$counter'>$counter</a></li>";
-                }
-        }
+  $i = 1;
+  if($next_page > $total_records_per_page) {
+    $i = $total_records_per_page + 1;
+  }
+  echo $total_records_per_page;
+	for ($counter = $i; $counter <= $total_records_per_page; $counter++){
+	  if ($counter == $page_no) {
+	    echo "<li class='active'><a>$counter</a></li>";	
+	  }else{
+      echo "<li><a href='?page_no=$counter'>$counter</a></li>";
+    }
+  }
 ?>
 
-  <li <?php if($page_no >= $total_no_of_pages){
+  <li <?php if($page_no * $total_records_per_page >= $total_no_of_pages){
   echo "class='disabled'";
   } ?>>
   <a <?php if($page_no < $total_no_of_pages) {

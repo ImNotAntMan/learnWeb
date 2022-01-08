@@ -69,8 +69,8 @@ require_once './util/loginchk.php';
   <!-- -->
   <nav>
     <ul>
-      <li><a href="/memo/memo_list.php">MemoApp</a></li>
-      <li><a href="/board/board_list.php">게시판</a></li>
+      <li><a href="./memo/memo_list.php">MemoApp</a></li>
+      <li><a href="./board/board_list.php">게시판</a></li>
       <li>Blog</li>
       
     </ul>
