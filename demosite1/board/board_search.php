@@ -51,7 +51,20 @@ if($chk_login){
   } else {
     $page_no = 1;
   }
+  $category = $_POST['category'];
+  if(empty($category)) {
+      $category = "";
+      $search_sql = "";
+  } else {
+    if($category == "search_subject") {
+        $search_value = $_POST['search'];
+        $search_sql = " subject like '%".$search_value."%' ";
+    } else {
+        $search_value = $_POST['search'];
+        $search_sql = " contents like '%".$search_value."%' ";
+    }
 
+  }
   // 2. 페이지당 보여줄 리스트 갯수값을 정한다.
   $total_records_per_page = 12;
 
@@ -62,7 +75,8 @@ if($chk_login){
   $adjacents = 2;
 
   // 4. 전체 페이지 수를 계산한다.
-  $sql = "SELECT COUNT(*) AS total_records FROM board";
+  $sql = "SELECT COUNT(*) AS total_records FROM board where ".$search_sql;
+  echo $sql."<br>";
   $resultset = $conn->query($sql);
   $result = mysqli_fetch_array($resultset);
   $total_records = $result['total_records'];
@@ -71,7 +85,8 @@ if($chk_login){
   // 여기까지 pagination용 추가
   //=================================================
   // 다음은 pagination을 위해 기존 코드 수정
-  $sql = "SELECT * FROM board LIMIT ".$offset.", ".$total_records_per_page;
+  $sql = "SELECT * FROM board where ".$search_sql." LIMIT ".$offset.", ".$total_records_per_page;
+  echo $sql;
   $resultset = $conn->query($sql);
 
   if ($resultset->num_rows > 0) {

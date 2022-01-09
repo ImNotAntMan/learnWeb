@@ -74,6 +74,7 @@
      `userid` INT(6) NOT NULL COMMENT 'user id' , 
      `subject` VARCHAR(256) NOT NULL COMMENT 'user subject' , 
      `contents` text NOT NULL COMMENT 'user contents' , 
+     `images` VARCHAR(256) NULL COMMENT 'user images' , 
      `registdate` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'registration date' ,  
      PRIMARY KEY (`memoid`)
      ) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci COMMENT = 'users memo table';";

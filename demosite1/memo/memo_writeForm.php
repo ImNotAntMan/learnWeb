@@ -18,11 +18,12 @@ $userid = $_SESSION['userid'];
 </head>
 <body>
   <h1>메모 작성</h1>
-  <form action="memo_writeprocess.php" method="POST">
+  <form action="memo_writeprocess.php" method="POST" enctype="multipart/form-data">
     <input type="hidden" value="<?=$userid?>" name="userid">
     <label>사용자 아이디 : </label><input maxlength="140" type="text" name="username" value="<?=$username?>" /><br>
     <label>제목 : </label><input type="text" name="subject" placeholder=" 1글자 이상으로 입력해주세요." required /><br>
     <label>내용 : </label><input type="text" name="contents" placeholder="메모 내용을 입력해 주세요." /><br>
+    <input type="file" name="fileToUpload" id="fileToUpload">
     <br>
     <input type=submit value="저장">
     <input type=reset value="리셋">

@@ -5,6 +5,7 @@ require "../util/dbconfig.php";
 require "../util/loginchk.php";
 $username = $_SESSION['username'];
 $userid = $_SESSION['userid'];
+$category = "";
 if (!$chk_login) {  // 로그인 상태가 아니라면
     echo "로그인 하세요";
     echo "<a href='../index.php'>처음으로</a>";
@@ -17,7 +18,7 @@ if (!$chk_login) {  // 로그인 상태가 아니라면
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
-    <title>메모 리스트</title>
+    <title>메모 검색 리스트</title>
 </head>
 <body>
 <header>
@@ -37,6 +38,21 @@ if (!$chk_login) {  // 로그인 상태가 아니라면
     $page_no = 1;
   }
 
+  $category = $_POST['category'];
+  if(empty($category)) {
+      $category = "";
+      $search_sql = "";
+  } else {
+    if($category == "search_subject") {
+        $search_value = $_POST['search'];
+        $search_sql = " subject like '%".$search_value."%' ";
+    } else {
+        $search_value = $_POST['search'];
+        $search_sql = " contents like '%".$search_value."%' ";
+    }
+
+  }
+
   // 2. 페이지당 보여줄 리스트 갯수값을 정한다.
   $total_records_per_page = 12;
 
@@ -47,7 +63,8 @@ if (!$chk_login) {  // 로그인 상태가 아니라면
   $adjacents = 2;
 
   // 4. 전체 페이지 수를 계산한다.
-  $sql = "SELECT COUNT(*) AS total_records FROM memo";
+  $sql = "SELECT COUNT(*) AS total_records FROM memo where ".$search_sql;
+  echo $sql;
   $resultset = $conn->query($sql);
   $result = mysqli_fetch_array($resultset);
   $total_records = $result['total_records'];
@@ -57,24 +74,22 @@ if (!$chk_login) {  // 로그인 상태가 아니라면
   //=================================================
   // 다음은 pagination을 위해 기존 코드 수정
   // $sql = "SELECT * FROM memo";
-  $sql = "SELECT * FROM memo LIMIT ".$offset.", ".$total_records_per_page;
-  $resultset = $conn->query($sql);
-
 ?>
     <h1>메모 리스트</h1>
     <div class="search">
       <form action="memo_search.php" method="POST">
-       <select name="category" id="category">
-         <option value="search_subject">제목</option>
-         <option value="search_contents">내용</option>
-       </select>
-       <input type="text" name="search">
-       <input type="submit" value="검색">
+          <select name="category" id="category">
+              <option value="search_subject">제목</option>
+              <option value="search_contents">내용</option>
+          </select>
+        <input type="text" name="search">
+        <input type="submit" value="검색">
       </form>
     </div>
     <div class="contents">
         <?php
-           $sql = "SELECT * FROM memo where userid=".$userid." order by registdate desc limit ".$offset.", ".$total_records_per_page;
+           $sql = "SELECT * FROM memo where userid=".$userid." and ".$search_sql." order by registdate desc limit ".$offset.", ".$total_records_per_page;
+           echo $sql;
            //$sql = "SELECT memoupdate.subject, toymemoupdate.contents, toymemoupdate.modifydate, toymemoupdate.modify, toymemo.registdate FROM toymemo INNER JOIN toymemoupdate ON toymemo.memoid = toymemoupdate.memoid WHERE toymemoupdate.memoid=".$memoid." ORDER BY modifydate DESC;" ;
            $resultset = $conn->query($sql);
 
