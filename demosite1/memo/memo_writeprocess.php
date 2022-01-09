@@ -27,7 +27,7 @@
  $contents = $_POST['contents'];
  // 입력 처리를 위한 prepared sql 구성 및 bind
  $i = 0;
- while($i <= 444) {
+ while($i <= 60) {
 $stmt = $conn->prepare("INSERT INTO memo(userid, subject, contents) VALUES(?, ?, ?)");
 //$stmt = $conn->prepare("INSERT INTO `memo`(`userid`, `subject`, `contents`) VALUES ('?','?','?')");
 $stmt->bind_param("sss", $userid, $subject, $contents);

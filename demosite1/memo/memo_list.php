@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="./css/memo.css">
 <?php
 $datestream = date("Y-m-d", time());
 require "../util/dbconfig.php";
@@ -132,12 +133,25 @@ if (!$chk_login) {  // 로그인 상태가 아니라면
   } ?>>Previous</a>
   </li>
 <?php
-  $i = 1;
-  if($next_page > $total_records_per_page) {
-    $i = $total_records_per_page + 1;
-  }
-  echo $total_records_per_page;
-	for ($counter = $i; $counter <= $total_records_per_page; $counter++){
+  // 등차수열의 일반항 an = 초기값 + (수량 -1)*차이
+  //여기서 리스트의 초기값은 1, 총수량(묶음)은 ceil(page_no/$total)records_per_page), 
+  // 차이는 total_records_per_page
+  // for 문을 돌리려면 초기값(start_number)과, 마지막값(end_number)을 알아야 한다.
+  //나는 12페이지씩 나오게 했으므로 1-12, 13-24, 25-36...가 각 페이지의 처음이다.
+  //레코드 갯수가 337개이므로 12개로 나누면 total_no_of_page=29, 이것을 12개씩 묶으니 3묶음
+  //a1 = 1 + (1 - 1)*12 = start_number 1
+  //a2 = 1 + (2 - 1)*12 = start_number 13
+  //a3 = 1 + (3 - 1)*12 = start_number 24
+  //end_number1 = start_number + 12 = 13 틀림 따라서 -1을 줘야함.
+  //end_number1 = 1 + 12 - 1 = 12 1~12
+  //end_number2 = 13 + 12 - 1 = 24 13~24
+  //end_number3 = 25 + 12 - 1 = 36 그러나 총페이지수가 29이므로 end_number3=29 가 되는 if문 필요.
+    $start_number = (ceil($page_no / $total_records_per_page) - 1) * $total_records_per_page + 1;
+    $end_number = $start_number + $total_records_per_page - 1;
+    if($end_number >= $total_no_of_pages) {
+        $end_number = $total_no_of_pages;
+    }
+	for ($counter = $start_number; $counter <= $end_number; $counter++){
 	  if ($counter == $page_no) {
 	    echo "<li class='active'><a>$counter</a></li>";	
 	  }else{

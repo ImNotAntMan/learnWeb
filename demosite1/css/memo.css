@@ -174,7 +174,7 @@ nav > ul > li {
   color: white;
 }
 
-.pagination a:hover:not(.active) {background-color: #ddd;}
+.pagination a:hover:not(.active) {background-color: rgb(153, 11, 11);}
 
 /* 100% Width on Smaller Screens */
 @media only screen and (max-width: 700px){
