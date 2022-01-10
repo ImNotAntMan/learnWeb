@@ -9,6 +9,7 @@
   로그인 성공했을 때, success 메시지 간단히 출력하고...
   여기에서는 사용자 목록 리스팅 기능을 수행하도록 구성함.
 -->
+<link rel="stylesheet" href="../css/employeer.css">
 <?php
 // db연결 준비
 require "../util/dbconfig.php";
@@ -32,6 +33,18 @@ if($chk_login){
 <body>
   <h1>사원 명단</h1>
   <br><br>
+  <div class="search">
+      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET">
+       <select name="category" id="category">
+         <option value="name">이름</option>
+         <option value="number">사번</option>
+         <option value="department">소속부서</option>
+       </select>
+       <input type="text" name="search_value">
+       <input type="submit" value="검색">
+      </form>
+    </div>
+    <a href="employeer_list.php">리스트</a><a href="../index.php">홈으로</a>
   <?php
   // ===========================================
   // 여기부터 pagination용 추가
@@ -41,9 +54,9 @@ if($chk_login){
   } else {
     $page_no = 1;
   }
-
   // 2. 페이지당 보여줄 리스트 갯수값을 정한다.
   $total_records_per_page = 12;
+  $list = 8;
 
   // 3. OFFSET을 계산하고 앞/뒤 페이지 등의 변수를 설정한다.
   $offset = ($page_no - 1) * $total_records_per_page;
@@ -52,23 +65,21 @@ if($chk_login){
   $adjacents = 2;
 
   // 4. 전체 페이지 수를 계산한다.
-  // $employeer_name = $_GET['employeer_name'];
-  // $employeer_number = $_GET['employeer_number'] ;
-   if(empty($_POST['employeer_name']) && empty($_POST['employeer_number'])) {
-    $sql = "SELECT COUNT(*) AS total_records FROM employeers";  
-    echo $sql;
-  } else {
-    if(empty($_POST['employeer_number'])) {
-      $search_value = $_POST['search_value'];
+  if(isset($_GET['category']) && $_GET['category'] != "" && isset($_GET['search_value']) && $_GET['search_value'] != "") {
+    $search_value = trim($_GET['search_value']);
+    if($_GET['category'] == "name") {
       $search_sql = " where employeer_name like '%".$search_value."%'";
       $sql = "SELECT COUNT(*) AS total_records FROM employeers".$search_sql;
-      echo $sql;
-    } else {
-      $search_value = $_POST['search_value'];
+    } elseif($_GET['category'] == "number") {
       $search_sql = " where employeer_number like '%".$search_value."%'";
       $sql = "SELECT COUNT(*) AS total_records FROM employeers".$search_sql;
-      echo $sql;
+    } else {
+      $search_sql = " where employeer_department like '%".$search_value."%'";
+      $sql = "SELECT COUNT(*) AS total_records FROM employeers".$search_sql;
     }
+  } else {
+    $sql = "SELECT COUNT(*) AS total_records FROM employeers";  
+    $search_sql = "";
   }
   $resultset = $conn->query($sql);
   $result = mysqli_fetch_array($resultset);
@@ -79,14 +90,24 @@ if($chk_login){
   //=================================================
   // 다음은 pagination을 위해 기존 코드 수정
   $employeer_id = $_SESSION['employeer_id'];
-  $sql = "SELECT * FROM employeers where employeer_id=".$employeer_id." LIMIT ".$offset.", ".$total_records_per_page;
+  $sql = "SELECT * FROM employeers ".$search_sql." LIMIT ".$offset.", ".$total_records_per_page;
   $resultset = $conn->query($sql);
   if ($resultset->num_rows > 0) {
-    echo "<table><tr><th>ID</th><th>USERNAME</th><th>작업내용</th></tr>";
+    echo "<table border=1><tr><th>번호</th><th>사진</th><th>사번</th><th>성명</th><th>소속부서</th><th>직위</th><th>작업내용</th></tr>";
     // out data of each row
     while ($row = $resultset->fetch_assoc()) {
-      echo "<tr><td>" . $row['employeer_number'] . "</td><td>" . $row['employeer_name'] . "</td><td><a href='employeer_detailview.php?employeer_id=" . $row['employeer_id'] . "'>상세정보확인</a></td></tr>";
+      if(empty($row['employeer_photo'])) {
+        $photo = "default.png";
+      } else {
+        $photo = $row['employeer_photo'];
+      }
+      echo "<tr><td>".$row['employeer_id']."</td><td><a href='uploads/".$photo."' target='_blank'><img src='uploads/".$photo."' width='144' height='100'></a></td><td>" . $row['employeer_number'] . "</td><td>" . $row['employeer_name'] . "</td><td>" . $row['employeer_department'] . "</td><td>" . $row['employeer_spot'] . "</td>
+      <td><a href='employeer_detailview.php?employeer_id=" . $row['employeer_id'] . "'>상세정보확인</a></td></tr>";
     }
+    echo "</table>";
+  } else {
+    echo "<table border=1><tr><th>사번</th><th>성명</th><th>소속부서</th><th>직위</th><th>작업내용</th></tr>";
+    echo "<tr><td>데이터가 없습니다.</td></tr>";
     echo "</table>";
   }
 ?>
@@ -140,18 +161,7 @@ if($chk_login){
   echo "<li><a href='?page_no=$total_no_of_pages'>Last &rsaquo;&rsaquo;</a></li>";
   } ?>
   </ul>
-      <div class="search">
-      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-       <select name="category" id="category">
-         <option value="employeer_name">이름</option>
-         <option value="employeer_number">사번</option>
-       </select>
-       <input type="text" name="search_value">
-       <input type="submit" value="검색">
-      </form>
-    </div>
-
-  <a href="../index.php">인덱스페이지로</a>
+  <br><a href="employeer_list.php">리스트</a><a href="../index.php">홈으로</a>
 </body>
 <?php 
 } else {

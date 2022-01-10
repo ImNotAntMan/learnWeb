@@ -51,6 +51,7 @@
      `employeer_number` INT(6) NOT NULL COMMENT '사원 번호', 
      `employeer_name` VARCHAR(44)  NOT NULL COMMENT '사원 이름' , 
      `employeer_photo` VARCHAR(256)  NULL COMMENT '사원 사진' , 
+     `employeer_passwd` VARCHAR(256)  NOT NULL COMMENT '암호' , 
      `employeer_department` VARCHAR(44)  NOT NULL COMMENT '사원 부서' , 
      `employeer_spot` VARCHAR(22)  NOT NULL COMMENT '사원 직위' , 
      `employeer_cellphone` VARCHAR(13) NOT NULL COMMENT 'phone number' , 

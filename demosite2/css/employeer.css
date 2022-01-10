@@ -112,15 +112,16 @@ a, a:visited, a:link, a:active, a:link {
   from {transform:scale(0)}
   to {transform:scale(1)}
 }
-
+/* 
 form input[type=text], form input[type=password] {
-  width: 100%;
+  width: 30%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
   box-sizing: border-box;
-}
+  background-color: #4CAF50;
+} */
 /* The Close Button */
 .close {
   position: absolute;
