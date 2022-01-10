@@ -16,7 +16,7 @@ if (!$chk_login) {  // 로그인 상태가 아니라면
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/memo.css">
     <title>메모 리스트</title>
 </head>
 <body>
@@ -91,51 +91,21 @@ if (!$chk_login) {  // 로그인 상태가 아니라면
         ?>
              <div class="contents_deep">
               <label for="subject"><b>제목: <?=$row['subject']?></b></label><br>
-              <label for="passwd"><b>내용: <?=$row['contents']?></b></label><br>
               <?php if($row['images']) { ?>
-              <img src="uploads/<?=$row['images']?>" width="100" height="100">
+              <a href="image_view.php?src=<?=$row['images']?>" target="_blank"><img src="uploads/<?=$row['images']?>" width="300" height="300"></a>
               <?php } else  {?>  
               <?php } ?>
+              <label for="passwd"><b>내용: <?=$row['contents']?></b></label><br>
               <label for="registdate"><b>등록일: <?=$row['registdate']?></b></label><br>
               <label for="modifydate"><b>수정일: <?=$modifydate?></b></label><br></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <a href="memo_modify.php?memoid=<?=$row['memoid']?>">수정&nbsp;&nbsp;</a><a href="memo_modifylist.php?memoid=<?=$row['memoid']?>">수정이력</a>
             </div>
             <?php } ?>
     </div>
-        <table border=1>
-        <tr>
-        <th>제목</th><th>생성일<br>최종수정일</th><th>사용자이름</th><th></th><th></th>
-        </tr>
-        <?php
-                echo "<tr>";
-                echo "<td>";
-                echo "<a href='memo_view.php?memoid=".$row['memoid']."&userid=".$row['userid']."'>";
-                echo $row['subject'];
-                echo "</a>";
-                echo "</td>";
-                echo "<td>";
-                echo $row['registdate']."<br>";
-                echo $modifydate;
-                echo "</td>";
-                echo "<td>";
-                echo $username;
-                echo "</td>";
-                echo "<td>";
-                echo "<a href='memo_modify.php?memoid=".$row['memoid']."'>수정</a>";
-                echo "</td>";
-                echo "<td>";
-                echo "<a href='memo_delete.php?memoid=".$row['memoid']."'>삭제</a>";
-                echo "</td>";
-                if($modifyset -> num_rows > 0) {
-                    echo "<td>";
-                    echo "<a href='memo_modifylist.php?memoid=".$row['memoid']."'>수정이력</a>";
-                    echo "</td>";
-                }
-                echo "</tr>";
+       <?php
             }
         }
         ?>
-    </table>
     <ul class="pagination">
     <?php if($page_no > 1){
       echo "<li><a href='?page_no=1'>First Page</a></li>";
