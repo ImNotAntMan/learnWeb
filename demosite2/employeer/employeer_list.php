@@ -54,17 +54,17 @@ if($chk_login){
   // 4. 전체 페이지 수를 계산한다.
   // $employeer_name = $_GET['employeer_name'];
   // $employeer_number = $_GET['employeer_number'] ;
-   if(empty($_POST['employeer_name']) && empty($_POST['employeer_number'])) {
+   if(empty($_GET['employeer_name']) && empty($_GET['employeer_number'])) {
     $sql = "SELECT COUNT(*) AS total_records FROM employeers";  
     echo $sql;
   } else {
-    if(empty($_POST['employeer_number'])) {
-      $search_value = $_POST['search_value'];
+    if(empty($_GET['employeer_number'])) {
+      $search_value = $_GET['search_value'];
       $search_sql = " where employeer_name like '%".$search_value."%'";
       $sql = "SELECT COUNT(*) AS total_records FROM employeers".$search_sql;
       echo $sql;
     } else {
-      $search_value = $_POST['search_value'];
+      $search_value = $_GET['search_value'];
       $search_sql = " where employeer_number like '%".$search_value."%'";
       $sql = "SELECT COUNT(*) AS total_records FROM employeers".$search_sql;
       echo $sql;
@@ -141,7 +141,7 @@ if($chk_login){
   } ?>
   </ul>
       <div class="search">
-      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET">
        <select name="category" id="category">
          <option value="employeer_name">이름</option>
          <option value="employeer_number">사번</option>
