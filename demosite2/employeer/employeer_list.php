@@ -54,11 +54,11 @@ if($chk_login){
   // 4. 전체 페이지 수를 계산한다.
   // $employeer_name = $_GET['employeer_name'];
   // $employeer_number = $_GET['employeer_number'] ;
-   if(!isset($_POST['employeer_name'], $_POST['employeer_number'])) {
+   if(empty($_POST['employeer_name']) && empty($_POST['employeer_number'])) {
     $sql = "SELECT COUNT(*) AS total_records FROM employeers";  
     echo $sql;
   } else {
-    if($_POST['category'] == "employeer_name") {
+    if(empty($_POST['employeer_number'])) {
       $search_value = $_POST['search_value'];
       $search_sql = " where employeer_name like '%".$search_value."%'";
       $sql = "SELECT COUNT(*) AS total_records FROM employeers".$search_sql;
