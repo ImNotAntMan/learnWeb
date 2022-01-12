@@ -38,21 +38,25 @@ if($chk_login){
 
   if ($resultset->num_rows > 0) {
     echo "<table><tr><th>ID</th><th>USERNAME</th><th>CellPhone</th><th>E-Mail</th><th>입사일</th><th>Last Login</th><th>Status</th><th>수정</th><th>삭제</th></tr>";
-
     $row = $resultset->fetch_assoc();
+    if(empty($row['employeer_photo'])) {
+        $photo = "default.png";
+    } else {
+        $photo = $row['employeer_photo'];
+    }
     echo "<tr><td>" . $row['employeer_id'] . "</td><td>" . $row['employeer_number'] . "</td><td>" . $row['employeer_cellphone'] . "</td><td>" . $row['employeer_email'] . "</td><td>" . $row['employeer_registdate'] . "</td><td>" . $row['employeer_lastdate'] . "</td><td>" . $row['status'] . "</td><td><a href='employeer_update.php?employeer_id=" . $row['employeer_id'] . "'>수정</a></td><td><a href='employeer_deleteprocess.php?employeer_id=" . $row['employeer_id'] . "'>삭제</a></td></tr>";
     echo "</table>";
   }
   ?>
   <table border="1" width="800">
     <tr>
-        <td rowspan"5" width = "85" height="113">
-            <img alt"사진" src="uploads/<?=$row['employeer_photo']?>" width =85 height="113">
+        <td rowspan"5" width = "135" height="113">
+            <img alt"사진" src="uploads/<?=$photo?>" width =135 height="113">
         </td>
         <th colspan="9" height="50"><font size="5"> 사원 정보 상세</font></th>
     </tr>
     <tr>
-        <th rowspan="3" width = "85" height = "70" bgcolor="D5D5D5"> <img src="uploads/<?=$row['employeer_photo']?>" width="85" height="113"></th>
+        <th rowspan="3" width = "85" height = "70" bgcolor="D5D5D5"> <img src="uploads/<?=$photo?>" width="85" height="113"></th>
     </tr>
     <tr align="center">
         <th colspan = "2" bgcolor="D5D5D5">한글</th>

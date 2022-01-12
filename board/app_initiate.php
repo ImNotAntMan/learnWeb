@@ -4,7 +4,6 @@
   최초작성일자 : 2021-12-28
   업데이트일자 : 2021-12-28
   업데이트일자 : 2021-12-30 by 민재기
-  업데이트일자 : 2022-01-10 by 민재기
   
   기능: 
   데이터베이스에 사용자 등록을 위한 users 테이블을 생성한다.
@@ -35,61 +34,59 @@
 
   // 기존 테이블이 있으면 삭제하고 새롭게 생성하도록 질의 구성
   // 질의 실행과 동시에 실행 결과에 따라 메시지 출력
-  $sql = "DROP TABLE IF EXISTS employeers";
+  // $sql = "DROP TABLE IF EXISTS users";
+  // if($conn->query($sql) == TRUE){
+  //   if(DBG) echo outmsg(DROPTBL_SUCCESS);
+  // }
+  $sql = "DROP TABLE IF EXISTS board";
   if($conn->query($sql) == TRUE){
     if(DBG) echo outmsg(DROPTBL_SUCCESS);
   }
-  $sql = "DROP TABLE IF EXISTS department_spot";
   if($conn->query($sql) == TRUE){
-    if(DBG) echo outmsg(DROPTBL_SUCCESS);
-  }
-  // 테이블을 생성한다.
-  // 데이터베이스명과 사용자명에 더 많은 유연성을 부여하며
-  // 테이블 생성시 데이터베이스 이름을 붙이는 부분을 생략함!!
-  $sql = "CREATE TABLE `employeers` (
-     `employeer_id` INT(6) NOT NULL AUTO_INCREMENT , 
-     `employeer_number` INT(6) NOT NULL COMMENT '사원 번호', 
-     `employeer_name` VARCHAR(44)  NOT NULL COMMENT '사원 이름' , 
-     `employeer_photo` VARCHAR(256)  NULL COMMENT '사원 사진' , 
-     `employeer_passwd` VARCHAR(256)  NOT NULL COMMENT '암호' , 
-     `employeer_department` VARCHAR(44)  NOT NULL COMMENT '사원 부서' , 
-     `employeer_spot` VARCHAR(22)  NOT NULL COMMENT '사원 직위' , 
-     `employeer_cellphone` VARCHAR(13) NOT NULL COMMENT 'phone number' , 
-     `employeer_email` VARCHAR(50) NOT NULL COMMENT 'mail address' , 
-     `employeer_registdate` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '입사일' , 
-     `employeer_lastdate` DATETIME NULL COMMENT '퇴사일' , 
-     `status` INT NULL DEFAULT '0' COMMENT 'activity status' , 
-     PRIMARY KEY (`employeer_id`)
-     ) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci COMMENT = 'users registration table';";
-     
-     if($conn->query($sql) == TRUE){
-        if(DBG) echo outmsg(CREATETBL_SUCCESS);
-     }else{
-        echo outmsg(CREATETBL_FAIL);
-     }
-
-$sql = "CREATE TABLE `department_spot` (
-      `id` INT(6) NOT NULL AUTO_INCREMENT , 
-      `employeer_number` INT(6) NOT NULL COMMENT '사원 번호', 
-      `employeer_id` VARCHAR(44)  NOT NULL COMMENT '사원 일련번호' , 
-      `employeer_department` VARCHAR(44)  NOT NULL COMMENT '사원 부서' , 
-      `employeer_spot` VARCHAR(22)  NOT NULL COMMENT '사원 직위' , 
-      `employeer_registdate` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '부서 전입일 또는 직위 변경일' , 
-      PRIMARY KEY (`id`)
-      ) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci COMMENT = 'users registration table';";
-   
-if($conn->query($sql) == TRUE){
     if(DBG) echo outmsg(CREATETBL_SUCCESS);
-}else{
-    echo outmsg(CREATETBL_FAIL);
-}
+    }else{
+        echo outmsg(CREATETBL_FAIL);
+    }
+    
+  $sql = "CREATE TABLE `board` (
+     `boardid` INT(6) NOT NULL AUTO_INCREMENT , 
+     `userid` INT(6) NOT NULL COMMENT 'user id' , 
+     `username` VARCHAR(46) NOT NULL COMMENT 'user name' , 
+     `subject` VARCHAR(256) NOT NULL COMMENT 'user subject' , 
+     `contents` text NOT NULL COMMENT 'user contents' , 
+     `registdate` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'registration date' ,  
+     PRIMARY KEY (`boardid`)
+     ) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci COMMENT = 'users board table';";
 
-     // 데이터베이스 연결 인터페이스 리소스를 반납한다.
+    if($conn->query($sql) == TRUE){
+        if(DBG) echo outmsg(CREATETBL_SUCCESS);
+    }else{
+        echo outmsg(CREATETBL_FAIL);
+    }
+    
+    $sql = "CREATE TABLE `boardreply` (
+    `replyid` INT(6) NOT NULL AUTO_INCREMENT , 
+    `boardid` INT(6) NOT NULL COMMENT 'user id' , 
+     `username` VARCHAR(46) NOT NULL COMMENT 'user name' , 
+     `subject` VARCHAR(256) NOT NULL COMMENT 'user subject' , 
+     `contents` text NOT NULL COMMENT 'user contents' , 
+     `registdate` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'registration date' ,  
+     PRIMARY KEY (`replyid`)
+     ) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci COMMENT = 'users reply board table';";
+  
+  //위 질의를 실행하고 실행결과에 따라 성공/실패 메시지 출력
+  if($conn->query($sql) == TRUE){
+    if(DBG) echo outmsg(CREATETBL_SUCCESS);
+  }else{
+    echo outmsg(CREATETBL_FAIL);
+  }
+
+  // 데이터베이스 연결 인터페이스 리소스를 반납한다.
   $conn->close();
 
 // 프로세스 플로우를 인덱스 페이지로 돌려준다.
 // header('Location: index.php');
 // 작업 실행 단계별 메시지 확인을 위해 Confrim and return to back하도록 수정함!!
 // 백그라운드로 처리되도록 할 경우 위 코드로 대체 할 것!!
-echo "<a href='../employeer/employeer_list.php'>Confirm and Return to back</a>";
+echo "<a href='../board_list.php'>Confirm and Return to back</a>";
 ?>

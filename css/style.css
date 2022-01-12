@@ -112,16 +112,23 @@ a, a:visited, a:link, a:active, a:link {
   from {transform:scale(0)}
   to {transform:scale(1)}
 }
-/* 
+
 form input[type=text], form input[type=password] {
-  width: 30%;
+  width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
   box-sizing: border-box;
-  background-color: #4CAF50;
-} */
+}
+
+form input[type=textarea] {
+  width: 100%;
+  height: 6.25em;
+  border: none;
+  resize: none;
+}
+
 /* The Close Button */
 .close {
   position: absolute;
@@ -144,20 +151,19 @@ form input[type=text], form input[type=password] {
   background-color: white;
 }
 
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-li {
-    display: inline;
-}
 nav > ul > li {
   float : left;
-  display: inline;
   margin-left: 2em;
 }
 
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+li {
+  display: inline;
+}
 .pagination {
   display: inline-block;
 }
@@ -167,6 +173,7 @@ nav > ul > li {
   float: left;
   padding: 8px 16px;
   text-decoration: none;
+  border: 1px solid #ddd; /* Gray */
 }
 
 
@@ -175,8 +182,21 @@ nav > ul > li {
   color: white;
 }
 
-.pagination a:hover:not(.active) {background-color: rgb(153, 11, 11);}
+.pagination a:hover:not(.active) {background-color: #ddd;}
 
+.contents {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: red;
+  border: 1px solid black;
+  align-items: center;
+}
+
+.contents_deep {
+  position: absolute;
+  border: 1px solid black;
+  width: 25%;
+}
 /* 100% Width on Smaller Screens */
 @media only screen and (max-width: 700px){
   .modal-content {

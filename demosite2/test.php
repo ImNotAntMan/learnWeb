@@ -1,5 +1,5 @@
 <?php
-if(!empty($_POST['name']) && !empty($_POST['number']))
+if(!empty($_POST['name']) || !empty($_POST['number']))
 { 
     $name = $_POST['name'];
     $number = $_POST['number'];
