@@ -67,7 +67,8 @@
     $sql = "CREATE TABLE `boardreply` (
     `replyid` INT(6) NOT NULL AUTO_INCREMENT , 
     `boardid` INT(6) NOT NULL COMMENT 'user id' , 
-     `employeer_id` VARCHAR(46) NOT NULL COMMENT 'user name' , 
+    `employeer_id` VARCHAR(46) NOT NULL COMMENT 'user name' , 
+    `employeer_name` VARCHAR(50) NOT NULL COMMENT 'user name' , 
      `reply_subject` VARCHAR(256) NOT NULL COMMENT 'user subject' , 
      `reply_contents` text NOT NULL COMMENT 'user contents' , 
      `reply_registdate` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'registration date' ,  

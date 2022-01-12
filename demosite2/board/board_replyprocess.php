@@ -20,13 +20,14 @@ require "../util/dbconfig.php";
 // 데이터베이스 작업 전, 회원가입화면으로 부터 값을 전달 받고
 $boardid = $_POST['boardid'];
 $employeer_id = $_POST['employeer_id'];
+$employeer_name = $_POST['employeer_name'];
 $subject = $_POST['subject'];
 $contents = $_POST['contents'];
 
 $regist_err = FALSE; // 등록 과정중 오류 발생하였음을 체크함
 $err_msg = "";
-$stmt = $conn->prepare("INSERT INTO boardreply(boardid,employeer_id,subject,contents) VALUES(?, ?, ?, ?)");
-$stmt->bind_param("ssss", $boardid, $employeer_id, $subject, $contents);
+$stmt = $conn->prepare("INSERT INTO boardreply(boardid, employeer_id,employeer_name, reply_subject, reply_contents) VALUES(?, ?, ?, ?, ?)");
+$stmt->bind_param("sssss", $boardid, $employeer_id, $employeer_name, $subject, $contents);
 $stmt->execute();
 
 $conn->close();
