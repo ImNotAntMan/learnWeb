@@ -72,7 +72,6 @@ require_once './util/loginchk.php';
       <li><a href="./employeer/employeer_list.php">사원정보</a></li>
       <li><a href="./board/board_list.php">게시판</a></li>
       <li>Blog</li>
-      
     </ul>
   </nav>
   <!-- -->

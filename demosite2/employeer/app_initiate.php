@@ -68,7 +68,7 @@
         echo outmsg(CREATETBL_FAIL);
      }
 
-$sql = "CREATE TABLE `department_spot` (
+     $sql = "CREATE TABLE `department_spot` (
       `id` INT(6) NOT NULL AUTO_INCREMENT , 
       `employeer_number` INT(6) NOT NULL COMMENT '사원 번호', 
       `employeer_id` VARCHAR(44)  NOT NULL COMMENT '사원 일련번호' , 
@@ -82,6 +82,23 @@ if($conn->query($sql) == TRUE){
     if(DBG) echo outmsg(CREATETBL_SUCCESS);
 }else{
     echo outmsg(CREATETBL_FAIL);
+}
+
+$sql = "CREATE TABLE `career` (
+  `id` INT(6) NOT NULL AUTO_INCREMENT , 
+  `employeer_id` VARCHAR(44)  NOT NULL COMMENT '사원 일련번호' , 
+  `career_kinds` VARCHAR(44)  NOT NULL COMMENT '경력 종류' , 
+  `career_department` VARCHAR(44)  NOT NULL COMMENT '사원 부서' , 
+  `career_spot` VARCHAR(22)  NOT NULL COMMENT '사원 직위' , 
+  `career_start` DATETIME NULL COMMENT '경력 시작' , 
+  `career_end` DATETIME NULL   COMMENT '경력 끝' , 
+  PRIMARY KEY (`id`)
+  ) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci COMMENT = '경력사항 table';";
+
+if($conn->query($sql) == TRUE){
+if(DBG) echo outmsg(CREATETBL_SUCCESS);
+}else{
+echo outmsg(CREATETBL_FAIL);
 }
 
      // 데이터베이스 연결 인터페이스 리소스를 반납한다.
