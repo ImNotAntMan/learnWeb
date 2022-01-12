@@ -56,7 +56,7 @@ if($chk_login){
   }
   // 2. 페이지당 보여줄 리스트 갯수값을 정한다.
   $total_records_per_page = 12;
-  $list = 8;
+  $list = 6;
 
   // 3. OFFSET을 계산하고 앞/뒤 페이지 등의 변수를 설정한다.
   $offset = ($page_no - 1) * $total_records_per_page;
@@ -90,7 +90,8 @@ if($chk_login){
   //=================================================
   // 다음은 pagination을 위해 기존 코드 수정
   $employeer_id = $_SESSION['employeer_id'];
-  $sql = "SELECT * FROM employeers ".$search_sql." LIMIT ".$offset.", ".$total_records_per_page;
+  $sql = "SELECT * FROM employeers ".$search_sql." LIMIT ".$offset.", ".$list;
+  echo $sql;
   $resultset = $conn->query($sql);
   if ($resultset->num_rows > 0) {
     echo "<table border=1><tr><th>번호</th><th>사진</th><th>사번</th><th>성명</th><th>소속부서</th><th>직위</th><th>작업내용</th></tr>";
