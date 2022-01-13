@@ -23,7 +23,7 @@ $employeer_id = $_POST['employeer_id'];
 $employeer_name = $_POST['employeer_name'];
 $subject = $_POST['subject'];
 $contents = $_POST['contents'];
-
+echo $employeer_name;
 $regist_err = FALSE; // 등록 과정중 오류 발생하였음을 체크함
 $err_msg = "";
 $stmt = $conn->prepare("INSERT INTO boardreply(boardid, employeer_id,employeer_name, reply_subject, reply_contents) VALUES(?, ?, ?, ?, ?)");

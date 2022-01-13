@@ -66,14 +66,14 @@ if ($result->num_rows > 0) {
     </tr>
     <tr align="center">
         <th colspan = "2" bgcolor="D5D5D5">한글</th>
-        <td width="90"><input type="text" name="employeer_name" value="<?=$row['employeer_name']?>"></td>
+        <td width="90"><input type="text" name="employeer_name" value=""><?=$row['employeer_name']?></td>
         <th bgcolor="D5D5D5" align="center">부서 및 직위</th>
         <th colspan="2" width = "80" bgcolor="D5D5D5">E-mail</th>
     </tr>
 
     <tr>
-        <th colspan = "2" bgcolor="D5D5D5"> 사번</th>
-        <td><input type="text" name="employeer_number" value="<?=$row['employeer_number']?>"></td>
+        <th colspan = "2" bgcolor="D5D5D5">사번</th>
+        <td align="center"><input type="text" name="employeer_number" value=""><?=$row['employeer_number']?></td>
         <td><input type="text" name="employeer_department" value="<?=$row['employeer_department']?>"><input type="text" name="employeer_spot" value="<?=$row['employeer_spot']?>"></td>
         <td colspan="2"><input type="text" name="employeer_email" value="<?=$row['employeer_email']?>"></td>
     </tr>

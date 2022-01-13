@@ -15,6 +15,8 @@ require "../util/dbconfig.php";
 // 로그인한 상태일 때만 이 페이지 내용을 확인할 수 있다.
 require_once '../util/loginchk.php';
 if($chk_login){
+  $employeer_name = $_SESSION['employeer_name'];
+  $employeer_id = $_SESSION['employeer_id'];
 ?>
 
 <!DOCTYPE html>
@@ -24,15 +26,14 @@ if($chk_login){
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./css/memo.css">
+  <link rel="stylesheet" href="/css/style.css">
   <title>게시판 목록</title>
 </head>
 
 <body>
   <h1>게시판 목록</h1>
   <a href="../index.php">인덱스페이지로</a>
-  <a href="board_write.php">쓰기</a>
-  <div class="search">
+  <button id='popup'>Comment</button>  <div class="search">
       <form action="board_search.php" method="POST">
        <select name="category" id="category">
          <option value="search_subject">제목</option>
@@ -42,6 +43,24 @@ if($chk_login){
        <input type="submit" value="검색">
       </form>
     </div>
+    <div id='writemodal' class='modal'>
+          <!-- 여기부터 쓰기 form in modal -->
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <form action="board_writeprocess.php" method="POST" class="loginbox">
+              <!-- <input type="hidden" value="<?=$boardid?>" name="boardid"> -->
+              <input type="hidden" value="<?=$employeer_name?>" name="employeer_name">
+              <input type="hidden" value="<?=$employeer_id?>" name="employeer_id">
+              <label for="employeer_name"><b>성명 : </b></label><?=$employeer_name?><br>
+              <label for="subject"><b>제목 </label><input type="text" name="subject" placeholder="Enter subject" required />
+              <label for="subject"><b>이메일 </label><input type="text" name="subject" placeholder="Enter email" height="30" width="100" required /><br>
+              <label for="subject"><b>사진 </label><input type="text" name="subject" placeholder="Enter email" height="30" width="100" required /><br>
+              <label for="contents"><b>내용 </label><br><textarea name="contents" cols="65" rows="7" required /></textarea><br><br>
+              <button type=submit>저장</button><br>
+            </form>
+             </div>
+           </div>
+    
   <?php
   // ===========================================
   // 여기부터 pagination용 추가
@@ -71,14 +90,14 @@ if($chk_login){
   // 여기까지 pagination용 추가
   //=================================================
   // 다음은 pagination을 위해 기존 코드 수정
-  $sql = "SELECT * FROM board LIMIT ".$offset.", ".$total_records_per_page;
+  $sql = "SELECT * FROM board order by registdate desc LIMIT ".$offset.", ".$total_records_per_page;
   $resultset = $conn->query($sql);
 
   if ($resultset->num_rows > 0) {
-    echo "<table><tr><th>ID</th><th>제목</th><th>작성자</th></tr>";
+    echo "<table border=4><tr><th>ID</th><th>제목</th><th>내용</th><th>작성자</th></tr>";
     // out data of each row
     while ($row = $resultset->fetch_assoc()) {
-      echo "<tr><td>" . $row['boardid'] . "</td><td><a href='board_detailview.php?id=".$row['boardid']."'>" . $row['subject'] . "</td><td>" .$row['username']. "</td><td></a></td></tr>";
+      echo "<tr><td>" . $row['boardid'] . "</td><td width='20%'><a href='board_detailview.php?id=".$row['boardid']."'>" . mb_substr($row['subject'],0, 30) . "....</td><td width='30%''>".mb_substr($row['contents'], 0, 55).".....</td><td>" .$row['username']. "</td><td></a></td></tr>";
     }
     echo "</table>";
   }
@@ -134,7 +153,7 @@ if($chk_login){
   } ?>
   </ul>
   <a href="../index.php">인덱스페이지로</a>
-  <a href="board_write.php">쓰기</a>
+  <button id='popup'>쓰기</button>
 </body>
 <?php 
 }else {
@@ -144,3 +163,4 @@ if($chk_login){
 }
 ?>
 </html>
+<script src="../js/writemodal.js"></script>

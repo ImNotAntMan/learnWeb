@@ -13,9 +13,16 @@ require "../util/dbconfig.php";
 
 // 전달된 id 획득
 $boardid = $_GET['id'];
-
+$employeer_id = $_GET['employeer_id'];
 // 삭제처리를 위한 질의 구성
 $sql = "DELETE FROM board WHERE boardid=" . $boardid;
+// 실행
+if ($conn->query($sql) == TRUE) {
+  echo outmsg(DELETE_SUCCESS);
+} else {
+  echo outmsg(DELETE_FAIL);
+}
+$sql = "DELETE FROM boardreply WHERE boardid=" . $boardid;
 // 실행
 if ($conn->query($sql) == TRUE) {
   echo outmsg(DELETE_SUCCESS);

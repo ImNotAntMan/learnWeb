@@ -53,7 +53,7 @@ if($chk_login){
     echo "<h1>".$sql."</h1>";
     $resultset = $conn->query($sql);
     while ($row = $resultset->fetch_assoc()) {
-      echo "<tr><td>" . $row['userid'] . "</td><td>" . $row['username'] . "</td><td>" . $row['reply_subject'] . "</td><td width='50%'>".$row['reply_contents']."</td><td>".$row['reply_registdate']."</td>";
+      echo "<tr><td>" . $row['userid'] . "</td><td>" . $row['employeer_name'] . "</td><td>" . $row['reply_subject'] . "</td><td width='50%'>".$row['reply_contents']."</td><td>".$row['reply_registdate']."</td>";
       // 답글을 쓴 당사자만 삭제, 수정이 가능하게
       if($employeer_id == $row['employeer_id']) {
         echo "<td><a href='board_deletereply.php?id=".$row['replyid']."'>삭제</a><a href='board_modifyeply.php?id=".$row['replyid']."'>수정</a></td>";
@@ -63,23 +63,35 @@ if($chk_login){
   }
     echo "</table><br>";
   ?>
-            <!-- 여기부터 답글 modal -->
-            <div id='replyModal' class='modal'>
-          <!-- 여기부터 로그인 form in modal -->
-          <div class="modal-content">
-            <span class="close">&times;</span>
-            <form action="board_replyprocess.php" method="POST" class="loginbox">
-              <input type="hidden" value="<?=$boardid?>" name="boardid">
-              <input type="hidden" value="<?=$employeer_id?>" name="employeer_id">
-              <label for="employeer_name"><b>성명</b></label><input type="text" name="employeer_name" value="<?=$employeer_name?>"/>
-              <label for="subject"><b>제목 </label><input type="text" name="subject" placeholder="Enter subject" required />
-              <label for="contents"><b>내용 </label><br><textarea name="contents" cols="65" rows="7" required /></textarea><br><br>
-              <button type=submit>저장</button><br>
-            </form>
-             </div>
-           </div>
-
+ <!-- 여기부터 답글 modal -->
+  <div id='replyModal' class='modal'>
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <form action="board_replyprocess.php" method="POST" class="loginbox">
+        <input type="hidden" value="<?=$boardid?>" name="boardid">
+        <input type="hidden" value="<?=$employeer_id?>" name="employeer_id">
+        <label for="employeer_name"><b>성명</b></label><input type="text" name="employeer_name" value="<?=$employeer_name?>"/>
+        <label for="subject"><b>제목 </label><input type="text" name="subject" placeholder="Enter subject" required />
+        <label for="contents"><b>내용 </label><br><textarea name="contents" cols="65" rows="7" required /></textarea><br><br>
+        <button type=submit>저장</button><br>
+      </form>
+    </div>
+  </div>
   <a href="board_list.php">목록보기</a><button id='popup'>Comment</button>
+<!-- 답글 모달 끝 -->
+<div id='modifyModal' class='modal'>
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <form action="reply_modifyprocess.php" method="POST" class="loginbox">
+        <input type="hidden" value="<?=$boardid?>" name="boardid">
+        <input type="hidden" value="<?=$employeer_id?>" name="employeer_id">
+        <label for="employeer_name"><b>성명</b></label><input type="text" name="employeer_name" value="<?=$employeer_name?>"/>
+        <label for="subject"><b>제목 </label><input type="text" name="subject" value="<?=$row['reply_subject']?>" placeholder="Enter subject" required />
+        <label for="contents"><b>내용 </label><br><textarea name="contents" cols="65" rows="7" required /><?=$row['reply_contents']?></textarea><br><br>
+        <button type=submit>저장</button><br>
+      </form>
+    </div>
+  </div>
 </body>
 <script src='../js/modal.js'></script>
 <?php 
