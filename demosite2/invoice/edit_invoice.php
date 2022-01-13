@@ -52,10 +52,10 @@ if(!empty($_GET['update_id']) && $_GET['update_id']) {
 							<tr>
 								<th width="2%"><input id="checkAll" class="formcontrol" type="checkbox"></th>
 								<th width="15%">Item No</th>
-								<th width="38%">Item Name</th>
-								<th width="15%">Quantity</th>
-								<th width="15%">Price</th>								
-								<th width="15%">Total</th>
+								<th width="38%">상품명</th>
+								<th width="15%">수량</th>
+								<th width="15%">가격</th>								
+								<th width="15%">합계</th>
 							</tr>
 							<?php 
 							$count = 0;
@@ -98,45 +98,46 @@ if(!empty($_GET['update_id']) && $_GET['update_id']) {
 		      		<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 						<span class="form-inline">
 							<div class="form-group">
-								<label>Subtotal: &nbsp;</label>
+								<label>합계: &nbsp;</label>
 								<div class="input-group">
-									<div class="input-group-addon currency">$</div>
 									<input value="<?php echo $invoiceValues['order_total_before_tax']; ?>" type="number" class="form-control" name="subTotal" id="subTotal" placeholder="Subtotal">
+									<div class="input-group-addon currency">원</div>					
 								</div>
 							</div>
 							<div class="form-group">
-								<label>Tax Rate: &nbsp;</label>
+								<label>부가가치세율: &nbsp;</label>
 								<div class="input-group">
 									<input value="<?php echo $invoiceValues['order_tax_per']; ?>" type="number" class="form-control" name="taxRate" id="taxRate" placeholder="Tax Rate">
 									<div class="input-group-addon">%</div>
 								</div>
 							</div>
 							<div class="form-group">
-								<label>Tax Amount: &nbsp;</label>
+								<label>부가가치세: &nbsp;</label>
 								<div class="input-group">
-									<div class="input-group-addon currency">$</div>
+									
 									<input value="<?php echo $invoiceValues['order_total_tax']; ?>" type="number" class="form-control" name="taxAmount" id="taxAmount" placeholder="Tax Amount">
+									<div class="input-group-addon currency">원</div>
 								</div>
 							</div>							
 							<div class="form-group">
-								<label>Total: &nbsp;</label>
+								<label>총계: &nbsp;</label>
 								<div class="input-group">
-									<div class="input-group-addon currency">$</div>
 									<input value="<?php echo $invoiceValues['order_total_after_tax']; ?>" type="number" class="form-control" name="totalAftertax" id="totalAftertax" placeholder="Total">
+									<div class="input-group-addon currency">원</div>
 								</div>
 							</div>
 							<div class="form-group">
 								<label>Amount Paid: &nbsp;</label>
 								<div class="input-group">
-									<div class="input-group-addon currency">$</div>
 									<input value="<?php echo $invoiceValues['order_amount_paid']; ?>" type="number" class="form-control" name="amountPaid" id="amountPaid" placeholder="Amount Paid">
+									<div class="input-group-addon currency">원</div>
 								</div>
 							</div>
 							<div class="form-group">
 								<label>Amount Due: &nbsp;</label>
 								<div class="input-group">
-									<div class="input-group-addon currency">$</div>
 									<input value="<?php echo $invoiceValues['order_total_amount_due']; ?>" type="number" class="form-control" name="amountDue" id="amountDue" placeholder="Amount Due">
+									<div class="input-group-addon currency">원</div>
 								</div>
 							</div>
 						</span>

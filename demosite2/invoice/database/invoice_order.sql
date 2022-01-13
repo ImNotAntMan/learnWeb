@@ -40,7 +40,7 @@ CREATE TABLE `invoice_order` (
   `order_amount_paid` decimal(10,2) NOT NULL,
   `order_total_amount_due` decimal(10,2) NOT NULL,
   `note` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
 
 --
 -- Dumping data for table `invoice_order`

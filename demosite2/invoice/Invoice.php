@@ -1,9 +1,9 @@
 <?php
 class Invoice{
 	private $host  = 'localhost';
-    private $user  = 'root';
-    private $password   = "";
-    private $database  = "invoice_system";   
+    private $user  = 'demosite2';
+    private $password   = "demosite2";
+    private $database  = "demosite2";   
 	private $invoiceUserTable = 'invoice_user';	
     private $invoiceOrderTable = 'invoice_order';
 	private $invoiceOrderItemTable = 'invoice_order_item';

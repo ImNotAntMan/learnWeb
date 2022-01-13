@@ -35,7 +35,7 @@ CREATE TABLE `invoice_user` (
   `last_name` varchar(100) NOT NULL,
   `mobile` bigint(20) NOT NULL,
   `address` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
 
 --
 -- Dumping data for table `invoice_user`

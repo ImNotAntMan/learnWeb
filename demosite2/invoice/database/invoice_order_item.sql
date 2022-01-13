@@ -35,7 +35,7 @@ CREATE TABLE `invoice_order_item` (
   `order_item_quantity` decimal(10,2) NOT NULL,
   `order_item_price` decimal(10,2) NOT NULL,
   `order_item_final_amount` decimal(10,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
 
 --
 -- Dumping data for table `invoice_order_item`
