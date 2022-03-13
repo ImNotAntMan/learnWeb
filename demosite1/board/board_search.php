@@ -114,7 +114,7 @@ if($chk_login){
   // 차이는 total_records_per_page
   // for 문을 돌리려면 초기값(start_number)과, 마지막값(end_number)을 알아야 한다.
   //나는 12페이지씩 나오게 했으므로 1-12, 13-24, 25-36...가 각 페이지의 처음이다.
-  //레코드 갯수가 337개이므로 12개로 나누면 total_no_of_page=29, 이것을 12개씩 묶으니 3묶음
+  //레코드 갯수가 337개이므로 12개로나누면  total_no_of_page=29, 이것을 12개씩 묶으니 3묶음
   //a1 = 1 + (1 - 1)*12 = start_number 1
   //a2 = 1 + (2 - 1)*12 = start_number 13
   //a3 = 1 + (3 - 1)*12 = start_number 25
